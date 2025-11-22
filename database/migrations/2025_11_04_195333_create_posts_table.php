@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('author')->index();
-            $table->unsignedInteger('category');
+            $table->foreignId('profile_id')->index()->constrained('profiles');
+            $table->foreignId('category_id')->index()->constrained('categories');
             $table->text('title')->unique();
             $table->longText('content')->nullable();
             $table->string('image_path')->nullable();

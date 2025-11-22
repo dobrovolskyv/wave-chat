@@ -7,6 +7,7 @@ use App\Http\Requests\Api\Post\StoreRequest;
 use App\Http\Requests\Api\Post\UpdateRequest;
 use App\Http\Resources\Post\PostResource;
 use App\Models\Post;
+use App\Services\PostService;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -30,7 +31,7 @@ class PostController extends Controller
     public function update(Post $post, UpdateRequest $request)
     {
         $data = $request->validated();
-        $post->update($data);
+        $post= PostService::update($post,$data);
         return PostResource::make($post)->resolve();
 
     }

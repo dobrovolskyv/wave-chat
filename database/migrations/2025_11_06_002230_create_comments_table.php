@@ -13,8 +13,9 @@ return new class extends Migration
     {
         Schema::create('comments', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('author')->index();
-            $table->foreignId('post')->constrained();
+            $table->foreignId('profile_id')->index()->constrained('profiles');
+            $table->foreignId('post_id')->index()->constrained('posts');
+            $table->foreingId('parend_id')->index()->nullable()->constrained('comments');
             $table->longText('content')->default('');
             $table->unsignedInteger('likes')->default(0);
             $table->unsignedInteger('reply')->default(0);

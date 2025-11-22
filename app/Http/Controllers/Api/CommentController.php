@@ -7,6 +7,7 @@ use App\Http\Requests\Api\Comment\StoreRequest;
 use App\Http\Requests\Api\Comment\UpdateRequest;
 use App\Http\Resources\Comment\CommentResource;
 use App\Models\Comment;
+use App\Services\CommentService;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -26,11 +27,12 @@ class CommentController extends Controller
     public function store(StoreRequest $request)
     {
         $data = $request->validated();
-        $comment = Comment::create($data);
+        // $comment = Comment::create($data);
+        $comment = CommentService::store($data);
         return $comment;
     }
 
-    /**
+    /** 
      * Display the specified resource.
      */
     public function show(Comment $comment)
@@ -44,7 +46,7 @@ class CommentController extends Controller
     public function update(UpdateRequest $request, Comment $comment)
     {
         $data = $request->validated();
-        $comment->update($data);
+        $comment = CommentService::update($comment, $data);
         return CommentResource::make($comment)->resolve();
     }
 

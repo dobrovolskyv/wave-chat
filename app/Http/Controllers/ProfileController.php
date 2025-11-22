@@ -21,8 +21,7 @@ class ProfileController extends Controller
     public function store()
     {
         $data = [
-            'first_name' => '433',
-            'second_name' => 'toje ',
+            'name' => '433',
             'last_name' => 'database -4343434',
             'gender' => 'female',
             // 'user_id' => 1,

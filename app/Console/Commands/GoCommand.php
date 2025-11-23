@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\Models\Post;
 use App\Models\Profile;
+use App\Models\User;
 use Illuminate\Console\Command;
 
 class GoCommand extends Command
@@ -27,8 +28,13 @@ class GoCommand extends Command
      */
     public function handle()
     {
-        $profile = Profile::first();
-        $post = Post::first();
-        dd($post->profile);
+//        $profile = Profile::first();
+//        $post = Post::first();
+//        dd($post->profile);
+
+        $user = User::factory()->create();
+        $user -> profile->create([
+            'name'=> "ILIA"
+        ]);
     }
 }

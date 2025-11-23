@@ -32,9 +32,14 @@ class GoCommand extends Command
 //        $post = Post::first();
 //        dd($post->profile);
 
-        $user = User::factory()->create();
-        $user -> profile->create([
-            'name'=> "ILIA"
-        ]);
+//        $user = User::factory()->create();
+//        $user -> profile->create([
+//            'name'=> "ILIA"
+//        ]);
+
+//        $user = User::first();
+//        dd(User::query());
+//        dd($user->profile());
+
     }
 }

@@ -41,5 +41,16 @@ class GoCommand extends Command
 //        dd(User::query());
 //        dd($user->profile());
 
+        $post = Post::first();
+
+        //attach - добавление
+        //detach - удаление, можно указать массив
+        //sync - удаляет абсюлтно все связи кроме тех, что указали, в масситва
+        //syncWithoutDetaching - не добавляет если есть связь, но другие не трогает
+        //toggle - если есть связь удаляет, если нет добавляет
+        //updateExistingPivot - позволяет обновлять атрибута у пивотнтой таблицы
+
+        $post->tags()->toggle([1,2,3]);
+
     }
 }

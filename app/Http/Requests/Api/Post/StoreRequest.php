@@ -21,7 +21,7 @@ class StoreRequest extends FormRequest
             'image_path' => 'nullable|string',
             'published_at' => 'nullable|date_format:Y-m-d H:i:s',
             'status' => 'nullable|integer|in:1,2,3,4',
-            'is_active' => 'nuallable|boolean',
+            'is_active' => 'nullable|boolean',
             'likes' => 'nullable|integer|min:0',
             'views' => 'nullable|integer|min:0',
         ];

@@ -2,9 +2,11 @@
 
 namespace Database\Seeders;
 
+use App\Models\Profile;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -26,10 +28,16 @@ class DatabaseSeeder extends Seeder
                 'email' => 'email@mail.ru'
             ]
             , $user);
-        // User::factory(10)->create();
+
+        Profile::create([
+            'name' => $user->name,
+            'user_id' => $user->id,
+            'last_name' => $user->last_name ?? 'FAMILIA',
+        ]);
+
         $this->call([
-            PostSeeder::class,
             CategorySeeder::class,
+            PostSeeder::class,
         ]);
     }
 }

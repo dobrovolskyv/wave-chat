@@ -8,8 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Post extends Model
 {
     use HasFactory;
-    protected $guarded = false;
-
     public function profile()
     {
         return $this->belongsTo(Profile::class);

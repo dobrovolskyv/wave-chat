@@ -2,12 +2,20 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Profile extends Model
 {
+
+    use HasFactory;
     public function posts()
     {
         return $this->hasMany(Post::class);
+    }
+
+    public function chats()
+    {
+        return $this->belongsToMany(Chat::class);
     }
 }

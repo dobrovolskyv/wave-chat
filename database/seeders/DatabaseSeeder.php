@@ -25,7 +25,8 @@ class DatabaseSeeder extends Seeder
         ];
 
         $user = User::firstOrCreate([
-                'email' => 'email@mail.ru'
+                'email' => 'email@mail.ru',
+                 'phone' =>'123123',
             ]
             , $user);
 
@@ -33,13 +34,16 @@ class DatabaseSeeder extends Seeder
             'name' => $user->name,
             'user_id' => $user->id,
             'last_name' => $user->last_name ?? 'FAMILIA',
+
         ]);
 
         $this->call([
+            ProfileSeeder::class,
             TagSeeder::class,
             CategorySeeder::class,
             PostSeeder::class,
             CommentSeeder::class,
+            ChatSeeder::class,
         ]);
     }
 }

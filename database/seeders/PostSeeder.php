@@ -19,7 +19,7 @@ class PostSeeder extends Seeder
 //        Post::factory(100)->create();
 
         //обновить данные после пивота
-        $posts = Post::factory(100)->create();
+        $posts = Post::factory(5)->create();
         $tags = Tag::all();
 
         foreach ($posts as $post) {

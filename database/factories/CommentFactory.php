@@ -18,13 +18,18 @@ class CommentFactory extends Factory
      */
     public function definition(): array
     {
+
+        $post = Post::inRandomOrder()->first();
+
         return [
             'profile_id' => Profile::inRandomOrder()->first()->id,
-            'post_id' => Post::inRandomOrder()->first()->id,
-//            'parent_id' => fake()->ad,
-            'content' => fake()->realTextBetween(5,50),
-            'likes' => fake()->numberBetween(5,100),
-            'reply' => fake()->numberBetween(2,10),
+            'post_id' => $post->id,
+            'commentable_id' => $post->id,
+            'commentable_type' => Post::class,
+            'parent_id' => null,
+            'content' => fake()->realTextBetween(5, 50),
+            'likes' => fake()->numberBetween(1, 100),
+            'reply' => fake()->numberBetween(1, 10),
         ];
     }
 }

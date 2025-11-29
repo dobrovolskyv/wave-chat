@@ -25,7 +25,7 @@ class PostController extends Controller
     {
         $data = $request->validated();
         $post = Post::create($data);
-        return $post;
+        return PostResource::make($post)->resolve();
     }
 
     public function update(Post $post, UpdateRequest $request)

@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Models\Category;
 use App\Models\Post;
 use App\Models\Profile;
 use App\Models\User;
@@ -41,7 +42,7 @@ class GoCommand extends Command
 //        dd(User::query());
 //        dd($user->profile());
 
-        $post = Post::first();
+//        $post = Post::first();
 
         //attach - добавление
         //detach - удаление, можно указать массив
@@ -50,7 +51,14 @@ class GoCommand extends Command
         //toggle - если есть связь удаляет, если нет добавляет
         //updateExistingPivot - позволяет обновлять атрибута у пивотнтой таблицы
 
-        $post->tags()->toggle([1,2,3]);
+//        $post->tags()->toggle([5,6,7]);
 
+
+//        $post = Profile::all();
+//        $post->likedPosts()->attach(1);
+
+        $category = Category::first();
+
+        dd($category->comments);
     }
 }

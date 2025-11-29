@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('comments', function (Blueprint $table) {
             $table->id();
             $table->foreignId('profile_id')->index()->constrained('profiles');
+            $table->morphs('commentable');
             $table->foreignId('post_id')->index()->constrained('posts');
             $table->foreignId('parent_id')->index()->nullable()->constrained('comments');
             $table->longText('content')->default('');

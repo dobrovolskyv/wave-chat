@@ -23,7 +23,7 @@ class PostSeeder extends Seeder
         $tags = Tag::all();
 
         foreach ($posts as $post) {
-            $post->tags()  ->attach($tags->random(fake()->numberBetween(1,5))->pluck('id'));
+            $post->tags()->attach($tags->random(fake()->numberBetween(1, 5))->pluck('id'));
         }
 
     }

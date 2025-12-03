@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Events\User\CreatedUserEvent;
 use App\Models\Profile;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -30,12 +31,18 @@ class DatabaseSeeder extends Seeder
             ]
             , $user);
 
-        Profile::create([
-            'name' => $user->name,
-            'user_id' => $user->id,
-            'last_name' => $user->last_name ?? 'FAMILIA',
+//        $user->profile()->firstOrCreate([
+//            'user' => $user->name,
+//        ]);
 
-        ]);
+//        Profile::create([
+//            'name' => $user->name,
+//            'user_id' => $user->id,
+//            'last_name' => $user->last_name ?? 'FAMILIA',
+//
+//        ]);
+
+        CreatedUserEvent::dispatch($user);
 
         $this->call([
             ProfileSeeder::class,

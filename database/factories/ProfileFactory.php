@@ -19,8 +19,8 @@ class ProfileFactory extends Factory
     {
         return [
             'user_id'=> User::factory(),
-            'last_name' => fake()->lastName(),
             'name' => fake()->firstName(),
+            'last_name' => fake()->lastName(),
             'gender' => fake()->randomElement(['male', 'female']),
             'address' => fake()->address(),
         ];

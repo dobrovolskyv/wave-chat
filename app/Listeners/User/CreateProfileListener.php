@@ -22,7 +22,8 @@ class CreateProfileListener
     public function handle(CreatedUserEvent $event): void
     {
         $event->user->profile()->firstOrCreate([
-            'name' => $event->user->name
-//        ]);
+            'name' => $event->user->name,
+            'last_name' => fake()->lastName(),
+       ]);
     }
 }

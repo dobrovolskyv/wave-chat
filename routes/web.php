@@ -1,42 +1,28 @@
 <?php
 
-use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\RoleController;
+use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\PostController;
+use Inertia\Inertia;
 
 Route::get('/', function () {
-    return view('welcome');
+    return Inertia::render('Welcome', [
+        'canLogin' => Route::has('login'),
+        'canRegister' => Route::has('register'),
+        'laravelVersion' => Application::VERSION,
+        'phpVersion' => PHP_VERSION,
+    ]);
 });
 
-//POSTS
-Route::get('/posts/index', [PostController::class, 'index']);
-Route::get('/posts/store', [PostController::class, 'store']);
-Route::get('/posts/{post}/show', [PostController::class, 'show']);
-Route::get('/posts/{post}/update', [PostController::class, 'update']);
-Route::get('/posts/{post}/destroy', [PostController::class, 'destroy']); 
+Route::get('/dashboard', function () {
+    return Inertia::render('Dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
 
-//PROFILES
-Route::get('/profiles/index', [ProfileController::class, 'index']);
-Route::get('/profiles/store', [ProfileController::class, 'store']);
-Route::get('/profiles/{profile}/show', [ProfileController::class, 'show']);
-Route::get('/profiles/{profile}/update', [ProfileController::class, 'update']);
-Route::get('/profiles/{profile}/destroy', [ProfileController::class, 'destroy']);
+// Route::middleware('auth')->group(function () {
+//     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+//     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+//     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+// });
 
-//ROLES
-Route::get('/roles/index', [RoleController::class, 'index']);
-Route::get('/roles/store', [RoleController::class, 'store']);
-Route::get('/roles/{role}/show', [RoleController::class, 'show']);
-Route::get('/roles/{role}/update', [RoleController::class, 'update']);
-Route::get('/roles/{role}/destroy', [RoleController::class, 'destroy']);
-
-
-//Comments
-Route::get('/comments/index', [CommentController::class, 'index']);
-Route::get('/comments/store', [CommentController::class, 'store']);
-Route::get('/comments/{comment}/show', [CommentController::class, 'show']);
-Route::get('/comments/{comment}/update', [CommentController::class, 'update']);
-Route::get('/comments/{comment}/destroy', [CommentController::class, 'destroy']);
-
-//доделать для всех сущностей
+require __DIR__.'/auth.php';
+require __DIR__.'/admin.php';

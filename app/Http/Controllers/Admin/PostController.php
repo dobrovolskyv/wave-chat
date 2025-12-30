@@ -27,7 +27,6 @@ class PostController extends Controller
         $data['profile_id'] = 1;
         $data['category_id'] = 1;
         $post = Post::create($data);
-        
         return PostResource::make($post)->resolve();
     }
 }

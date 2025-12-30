@@ -2,6 +2,9 @@
 
 namespace App\Models;
 
+use App\Http\Filters\PostFilter;
+use App\Models\Traits\HasFilter;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
@@ -10,6 +13,7 @@ use Illuminate\Database\Eloquent\Relations\MorphOne;
 class Post extends Model
 {
     use HasFactory;
+    use HasFilter;
 
     public function profile()
     {
@@ -41,4 +45,6 @@ class Post extends Model
         return $this->morphMany(View::class, 'viewable');
     }
 
+    //11 урок создание скопу фильтра
+    
 }

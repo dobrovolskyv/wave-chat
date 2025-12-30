@@ -25,9 +25,9 @@ Route::group(['middleware' => 'jwt.auth', 'prefix' => 'auth'], function () {
 // Route::delete('/posts/{post}', [PostController::class, 'destroy']);
 
 Route::group(['middleware' => ['jwt.auth', IsAdminMiddleware::class]], function () {
-    Route::apiResource('posts', PostController::class);
 });
 
+Route::apiResource('posts', PostController::class);
 Route::apiResource('comments', CommentController::class);
 Route::apiResource('profiles', ProfileController::class);
 Route::apiResource('messages', MessageController::class);

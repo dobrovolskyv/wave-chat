@@ -24,6 +24,7 @@ class PostFactory extends Factory
             'title' => fake()->realTextBetween(20,50),
             'content' => fake()->realTextBetween(150,255),
             'image_path' => fake()->imageUrl(),
+            'views' => fake()->numberBetween(100,1000),
             'published_at' => fake()->dateTime,
             'status' => fake()->numberBetween(0,4),
             'is_active' => fake()->boolean,

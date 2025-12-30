@@ -1,5 +1,10 @@
 <template>
-    <div class="w-1/2 mx-auto my-10">
+    <div class="mb-4">
+        <Link :href="route('admin.posts.create')" class="inline-block px-3 py-2 bg-sky-700 border border-sky-800 text-white">
+            Создать
+        </Link>
+    </div>
+    <div class="">
         <div v-for="post in posts" class="mb-4 bg-white p-4 border border-gray-200">
             <h3 class="text-bold text-2xl mb-2">{{ post.title }}</h3>
             <p class="text-gray-500">{{ post.content }}</p>
@@ -9,13 +14,20 @@
 </template>
 
 <script>
+import AdminLayout from '@/Layouts/AdminLayout.vue';
+import { Link } from "@inertiajs/vue3";
+
 export default {
     name: "Index",
+    layout: AdminLayout,
     props: {
         posts: {
             required: false,
             type: Array
         }
+    },
+    components: {
+        Link
     }
 }
 

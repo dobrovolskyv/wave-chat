@@ -21,6 +21,7 @@ class StoreRequest extends FormRequest
             'post.published_at' => 'nullable|date_format:Y-m-d',
             'post.category_id' => 'required|integer|exists:categories,id',
             'images' => 'nullable|array',
+            'tags'=> 'nullable|string'
         ];
     }
 

@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\Post;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class PostService
@@ -11,8 +12,17 @@ class PostService
 
     public static function store(array $data): Post
     {
-        $post = Post::create($data['post']);
-        ImageService::storeBatch($data['images'], $post);
+        try {
+            DB::beginTransaction();
+            $post = Post::create($data['post']);
+            ImageService::storeBatch($data['images'], $post);
+            $tags = TagService::storeBatch($data['tags']);
+            $post->tags()->sync($tags->pluck('id'));
+            DB::commit();
+        } catch (\Exception $exception) {
+            DB::rollBack();
+        }
+
         return $post;
     }
     public static function update(Post $post, array $data): Post
@@ -22,8 +32,8 @@ class PostService
     }
 
 
-     public static function storeImage(UploadedFile $file): string
-     {
+    public static function storeImage(UploadedFile $file): string
+    {
         return Storage::disk('public')->put('/images', $file);
-     }
+    }
 }

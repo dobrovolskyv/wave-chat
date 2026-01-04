@@ -90,6 +90,7 @@ export default {
                         category_id: null,
 
                     }
+                    this.entries.tags = ''
 
                     this.$refs.image_input.value = null
                 })

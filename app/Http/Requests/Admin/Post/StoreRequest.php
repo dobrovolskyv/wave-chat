@@ -16,8 +16,17 @@ class StoreRequest extends FormRequest
     {
         return [
             'title' => 'required|string',
+            'profile_id' => 'required|integer|exists:profiles,id',
             'content' => 'nullable|string',
             'published_at' => 'nullable|date_format:Y-m-d',
+            'category_id' => 'required|integer|exists:categories,id'
         ];
+    }
+
+    protected function prepareForValidation()
+    {
+        return $this->merge([
+            'profile_id' => auth()->user()->profile->id
+        ]);
     }
 }

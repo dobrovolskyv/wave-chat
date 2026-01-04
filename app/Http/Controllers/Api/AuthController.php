@@ -8,6 +8,11 @@ use Illuminate\Http\Request;
 class AuthController extends Controller
 {
 
+    public function __construct()
+    {
+        config()->set('auth.defaults.guard', 'api');
+    }
+
     /**
      * Get a JWT via given credentials.
      *

@@ -13,7 +13,7 @@
                     <Link class="border-b border-sky-800 p-4 border-t border-t-sky-300"
                         :href="route('admin.posts.index')">POSTS</Link>
                     <Link class="border-b border-sky-800 p-4 border-t border-t-sky-300"
-                        :href="route('admin.categories.index')">CATEGORY</Link>
+                        :href="route('admin.categories.index')">CATEGORIES</Link>
                 </nav>
             </div>
             <div class="w-3/4 bg-gray-100 p-4">

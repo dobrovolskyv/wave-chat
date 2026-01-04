@@ -14,6 +14,12 @@
                     placeholder="published at">
             </div>
             <div class="mb-4">
+                <select v-model="post.category_id" class="w-full p-4 border border-gray-400">
+                    <option value="null" disabled>Выбери категрии</option>
+                    <option v-for="category in categories" :value="category.id">{{ category.title }}</option>
+                </select>
+            </div>
+            <div class="mb-4">
                 <textarea v-model="post.content" class="w-full p-4 border border-gray-400 resize-none" type="text"
                     placeholder="title" />
             </div>
@@ -37,6 +43,10 @@ export default {
         posts: {
             required: false,
             type: Array
+        },
+        categories: {
+            required: true,
+            type: Array
         }
     },
     components: {
@@ -47,7 +57,8 @@ export default {
             post: {
                 title: '',
                 content: '',
-                published_at: ''
+                published_at: '',
+                category_id: null
             }
         }
     },
@@ -55,7 +66,13 @@ export default {
         storePost() {
             axios.post(route('admin.posts.store'), this.post)
                 .then(() => {
+                    this.post = {
+                        title: '',
+                        content: '',
+                        published_at: '',
+                        category_id: null
 
+                    }
                 })
                 .catch(() => {
 

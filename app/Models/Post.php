@@ -46,5 +46,10 @@ class Post extends Model
     }
 
     //11 урок создание скопу фильтра
+
+    public function images()
+    {
+        return $this->morphMany(Image::class, 'imageable');
+    }
     
 }

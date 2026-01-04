@@ -15,18 +15,22 @@ class StoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => 'required|string',
-            'profile_id' => 'required|integer|exists:profiles,id',
-            'content' => 'nullable|string',
-            'published_at' => 'nullable|date_format:Y-m-d',
-            'category_id' => 'required|integer|exists:categories,id'
+            'post.title' => 'required|string',
+            'post.profile_id' => 'required|integer|exists:profiles,id',
+            'post.content' => 'nullable|string',
+            'post.published_at' => 'nullable|date_format:Y-m-d',
+            'post.category_id' => 'required|integer|exists:categories,id',
+            'images' => 'nullable|array',
         ];
     }
 
     protected function prepareForValidation()
     {
         return $this->merge([
-            'profile_id' => auth()->user()->profile->id
+            'post' => [
+                ...$this->all()['post'],
+                'profile_id' => auth()->user()->profile->id
+            ]
         ]);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Post;
 
+use App\Http\Resources\Image\ImageResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -15,11 +16,12 @@ class PostResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id'=> $this->id,
+            'id' => $this->id,
             "author" => $this->author,
-            "title"=> $this->title,
+            "title" => $this->title,
             "content" => $this->content,
             "image_path" => $this->image_path,
+            'images' => ImageResource::collection($this->images)->resolve(),
             "published_at" => $this->published_at,
             "views" => $this->views
         ];

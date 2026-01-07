@@ -21,7 +21,7 @@ class StoreRequest extends FormRequest
             'post.published_at' => 'nullable|date_format:Y-m-d',
             'post.category_id' => 'required|integer|exists:categories,id',
             'images' => 'nullable|array',
-            'tags'=> 'nullable|string'
+            'tags' => 'nullable|string'
         ];
     }
 
@@ -33,5 +33,12 @@ class StoreRequest extends FormRequest
                 'profile_id' => auth()->user()->profile->id
             ]
         ]);
+    }
+
+    public function messages()
+    {
+        return [
+            'post.title.required' => 'Это поле обязательно для заполнения'
+        ];
     }
 }

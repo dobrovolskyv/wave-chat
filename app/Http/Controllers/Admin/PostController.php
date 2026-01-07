@@ -9,6 +9,7 @@ use App\Http\Resources\Post\PostResource;
 use App\Models\Category;
 use App\Models\Post;
 use App\Services\PostService;
+use Illuminate\Http\Response;
 
 
 class PostController extends Controller
@@ -37,5 +38,13 @@ class PostController extends Controller
         $post = PostService::store($data);
         // $post = Post::create($data);
         return PostResource::make($post)->resolve();
+    }
+
+    public function destroy(Post $post)
+    {
+        $post->delete();
+        return response()->json([
+            'message' => 'пост удален'
+        ], Response::HTTP_OK);
     }
 }

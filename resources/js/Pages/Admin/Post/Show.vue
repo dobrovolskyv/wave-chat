@@ -1,6 +1,6 @@
 <template>
     <div class="mb-4">
-        <Link :href="route('admin.posts.create')" class="inline-block px-3 py-2 bg-sky-700 border border-sky-800 text-white">
+        <Link :href="route('admin.posts.index')" class="inline-block px-3 py-2 bg-sky-700 border border-sky-800 text-white">
             Posts
         </Link>
     </div>

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Http\Filters\PostFilter;
 use App\Models\Traits\HasFilter;
+use App\Models\Category;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -23,6 +24,11 @@ class Post extends Model
     public function tags()
     {
         return $this->belongsToMany(Tag::class)->withTimestamps();
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
     }
 
     public function image(): MorphOne
@@ -51,5 +57,9 @@ class Post extends Model
     {
         return $this->morphMany(Image::class, 'imageable');
     }
-    
+
+    public function getTagsAsStringAttribute(): string
+    {
+        return implode(',', $this->tags->pluck('title')->toArray());
+    }
 }

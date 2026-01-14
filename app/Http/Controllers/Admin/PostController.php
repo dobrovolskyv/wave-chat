@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Post\StoreRequest;
+use App\Http\Requests\Admin\Post\UpdateRequest;
 use App\Http\Resources\Category\CategoryResource;
+use App\Http\Resources\Post\PostForEditResource;
 use App\Http\Resources\Post\PostResource;
 use App\Models\Category;
 use App\Models\Post;
@@ -37,6 +39,20 @@ class PostController extends Controller
         $data = $request->validated();
         $post = PostService::store($data);
         // $post = Post::create($data);
+        return PostResource::make($post)->resolve();
+    }
+
+    public function edit(Post $post)
+    {
+        $post = PostForEditResource::make($post)->resolve();
+        $categories = CategoryResource::collection(Category::all())->resolve();
+        return inertia('Admin/Post/Edit', compact('post', 'categories'));
+    }
+
+    public function update(Post $post, UpdateRequest $request)
+    {
+        $data = $request->validated();
+        $post = PostService::update($data);
         return PostResource::make($post)->resolve();
     }
 

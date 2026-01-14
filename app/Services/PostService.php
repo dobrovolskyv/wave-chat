@@ -27,7 +27,17 @@ class PostService
     }
     public static function update(Post $post, array $data): Post
     {
-        $post->update($data);
+        try {
+            DB::beginTransaction();
+            ImageService::storeBatch($data['images'], $post);
+            $tags = TagService::storeBatch($data['tags']);
+            $post->tags()->sync($tags->pluck('id'));
+            $post->update($data['post']);
+            DB::commit();
+        } catch (\Exception $exception) {
+            DB::rollBack();
+        }
+
         return $post;
     }
 

@@ -15,7 +15,7 @@ class IndexRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'profile_id' => 'nullable|integer|exists:profiles,id',
+            // 'profile_id' => 'nullable|integer|exists:profiles,id',
             'title' => 'nullable|string',
             'category_id' => 'nullable|integer',
             'views_from' => 'nullable|integer|min:0',

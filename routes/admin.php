@@ -15,7 +15,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', Is
     Route::get('/posts/{post}/edit', [PostController::class, 'edit'])->name('posts.edit');
     Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
     Route::delete('/posts/{post}', [PostController::class, 'destroy'])->name('posts.destroy');
-    Route::patch('/posts/{post}', [PostController::class, 'update'])->name('posts.udapte');
+    Route::patch('/posts/{post}', [PostController::class, 'update'])->name('posts.update');
 
 
     Route::delete('/images/{image}', [ImageController::class, 'destroy'])->name('images.destroy');

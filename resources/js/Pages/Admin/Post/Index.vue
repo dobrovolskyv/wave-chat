@@ -32,6 +32,7 @@
                 <div class="flex items-center gap-8">
                     {{ post.views }}
                     {{ post.published_at }}
+                    
                 </div>
             </div>
             <div class="flex items-center gap-2">

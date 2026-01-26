@@ -1,5 +1,5 @@
 <template>
-    <div v-for="category in categories" class="mb-4 bg-white p-4 border border-gray-200">
+    <div v-for="category in categories" class="mb-4 bg-white p-4 border border-gray-200 ">
         <h3 class="text-bold text-2xl mb-2">{{ category.title }}</h3>
     </div>
     

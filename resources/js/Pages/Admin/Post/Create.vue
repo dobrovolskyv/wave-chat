@@ -5,7 +5,7 @@
         Посты
         </Link>
     </div>
-    <div v-if="isSuccess" class="bg-green-800 my-4 max-w-">
+    <div v-if="isSuccess" class="bg-green-800 my-4 max-w-full">
         <div class="text-white p-4 ">Success!</div>
     </div>
     <div class="">

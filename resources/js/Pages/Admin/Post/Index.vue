@@ -8,23 +8,29 @@
     <div class="mb-4">
         <div class="flex items-center ">
             <div>
-                <input class="border border-gray-200 p-4" type="text" placeholder="title">
+                <input v-model="filter.title" class="border border-gray-200 p-4" type="text" placeholder="title">
             </div>
             <div>
-                <input class="border border-gray-200 p-4" type="number" placeholder="views from">
+                <input v-model="filter.publishad_at_from" class="border border-gray-200 p-4" type="number"
+                    placeholder="views from">
             </div>
             <div>
-                <input class="border border-gray-200 p-4" type="date" placeholder="date">
+                <input v-model="filter.views_from" class="border border-gray-200 p-4" type="date" placeholder="date">
             </div>
             <div>
-                <a href="#" class="border border-sky-800 p-4 inline-block  bg-sky-700 text-white">Фильтры</a>
+                <a @click.prevent="getPosts" href="#"
+                    class="border border-emerald-800 p-4 inline-block  bg-emerald-700 text-white">Применить фильтр</a>
+            </div>
+            <div v-if="Object.keys(filter).length > 0">
+                <a @click.prevent="filter = {}" href="#"
+                    class="border border-red-800 p-4 inline-block  bg-red-700 text-white">Отменить фильтр</a>
             </div>
         </div>
     </div>
     <div class="">
         <div v-for="post in postsData"
-            class="mb-4 bg-white p-4 border  border-gray-200 flex пше items-center">
-            <Link :href="route('admin.posts.show', post.id)">
+            class="mb-4 bg-white p-4 border  border-gray-200 flex justify-between items-center">
+            <Link :href="route('admin.posts.show', post.id)" class="text-bold max-w-[45 0px] w-full">
             <h3 class="text-bold text-2xl max-w-[400px] mb-2 hover:text-gray-500">{{ post.title }}</h3>
             </Link>
             <!-- <p class="text-gray-500">{{ post.content }}</p> -->
@@ -58,6 +64,7 @@
 <script>
 import AdminLayout from '@/Layouts/AdminLayout.vue';
 import { Link } from "@inertiajs/vue3";
+import axios from "axios";
 
 export default {
     name: "Index",
@@ -70,7 +77,8 @@ export default {
     },
     data() {
         return {
-            postsData: this.posts
+            postsData: this.posts,
+            filter: {},
         }
     },
     components: {
@@ -82,8 +90,24 @@ export default {
                 .then(res => {
                     this.postsData = this.postsData.filter(postItem => postItem.id !== post.id)
                 })
+        },
+        getPosts() {
+            axios.get(route('admin.posts.index'), {
+                params: this.filter
+            })
+                .then(res => {
+                    this.postsData = res.data
+                })
         }
 
+    },
+    watch: {
+        filter: {
+            handler() {
+                this.getPosts()
+            },
+            deep: true
+        }
     }
 }
 

@@ -59,12 +59,11 @@
 
         </div>
     </div>
-    <div> 
+    <div>
         <div>
-            <a class="inline-block mr-2 p-2 border border-gray-200 bg-white text-gray-600" 
-            v-for="link in postsData.meta.links" 
-            @click="filter.page = link.label"
-            href="#" v-html="link.label"></a>
+            <a class="inline-block mr-2 p-2 border border-gray-200 bg-white text-gray-600"
+                v-for="link in postsData.meta.links" @click="entries.pagination.page = link.label" href="#"
+                v-html="link.label"></a>
         </div>
     </div>
 </template>
@@ -73,7 +72,7 @@
 import AdminLayout from '@/Layouts/AdminLayout.vue';
 import { Link } from "@inertiajs/vue3";
 import axios from "axios";
- 
+
 export default {
     name: "Index",
     layout: AdminLayout,
@@ -86,7 +85,12 @@ export default {
     data() {
         return {
             postsData: this.posts,
-            filter: {},
+            entries: {
+                filter: {},
+                pagination: {}
+            }
+
+
         }
     },
     components: {
@@ -101,7 +105,7 @@ export default {
         },
         getPosts() {
             axios.get(route('admin.posts.index'), {
-                params: this.filter
+                params: this.entries
             })
                 .then(res => {
                     this.postsData = res.data
@@ -110,7 +114,14 @@ export default {
 
     },
     watch: {
-        filter: {
+        'entries.filter': {
+            handler() {
+                this.entries.pagination.page = 1
+                this.getPosts()
+            },
+            deep: true
+        },
+        'entries.pagination': {
             handler() {
                 this.getPosts()
             },

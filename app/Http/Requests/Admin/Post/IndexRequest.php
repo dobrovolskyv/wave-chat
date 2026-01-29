@@ -16,20 +16,22 @@ class IndexRequest extends FormRequest
     {
         return [
             // 'profile_id' => 'nullable|integer|exists:profiles,id',
-            'title' => 'nullable|string',
-            'category_id' => 'nullable|integer',
-            'views_from' => 'nullable|integer|min:0',
-            'published_at_from' => 'nullable|date_format:Y-m-d H:i:s',
-            'page' => 'required|integer',
-            'per_page' => 'required|integer'
+            'filter.title' => 'nullable|string',
+            'filter.category_id' => 'nullable|integer',
+            'filter.views_from' => 'nullable|integer|min:0',
+            'filter.published_at_from' => 'nullable|date_format:Y-m-d H:i:s',
+            'pagination.page' => 'required|integer',
+            'pagination.per_page' => 'required|integer'
         ];
     }
 
     protected function prepareForValidation()
     {
         return $this->merge([
-            'page' => $this->page ?? 1,
-            'per_page' => $this->pre_page ?? 10
+            'pagination' => [
+                'page' => $this->page ?? 1,
+                'per_page' => $this->per_page ?? 10
+            ]
         ]);
     }
 }

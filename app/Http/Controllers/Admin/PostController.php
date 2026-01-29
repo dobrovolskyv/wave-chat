@@ -13,6 +13,7 @@ use App\Models\Category;
 use App\Models\Post;
 use App\Services\PostService;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Request;
 
 
@@ -20,12 +21,17 @@ class PostController extends Controller
 {
     public function index(IndexRequest $request)
     {
-        $data= $request->validated();
-        $posts = PostResource::collection(Post::filter($data)->latest()->paginate($data['per_page'], '*', 'page', $data['page']));
+        $data = $request->validated();
+        $data['filter'] = $data['filter'] ?? [];
 
-        if(Request::wantsJson()){
+        $key =serialize($data);
+
+        $posts = Cache::remember($key, now()->addMinutes(10), function () use ($data) {
+            return PostResource::collection(Post::filter($data)->latest()->paginate($data['pagination']['per_page'], '*', 'page', $data['pagination']['page']));
+        });
+        if (Request::wantsJson()) {
             return $posts;
-        }  
+        }
 
         return inertia('Admin/Post/Index', compact('posts'));
     }

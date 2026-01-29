@@ -59,9 +59,12 @@
 
         </div>
     </div>
-    <div>
+    <div> 
         <div>
-            <a class="inline-block mr-2 p-2 border border-gray-200 bg-white text-gray-600" v-for="link in postsData.meta.links" href="#" v-html="link.label"></a>
+            <a class="inline-block mr-2 p-2 border border-gray-200 bg-white text-gray-600" 
+            v-for="link in postsData.meta.links" 
+            @click="filter.page = link.label"
+            href="#" v-html="link.label"></a>
         </div>
     </div>
 </template>

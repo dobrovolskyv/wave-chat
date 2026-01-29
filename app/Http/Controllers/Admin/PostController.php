@@ -21,7 +21,7 @@ class PostController extends Controller
     public function index(IndexRequest $request)
     {
         $data= $request->validated();
-        $posts = PostResource::collection(Post::filter($data)->latest()->paginate(5, '*', 'page', 1));
+        $posts = PostResource::collection(Post::filter($data)->latest()->paginate($data['per_page'], '*', 'page', $data['page']));
 
         if(Request::wantsJson()){
             return $posts;

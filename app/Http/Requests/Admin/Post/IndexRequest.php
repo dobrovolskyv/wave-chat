@@ -20,7 +20,17 @@ class IndexRequest extends FormRequest
             'category_id' => 'nullable|integer',
             'views_from' => 'nullable|integer|min:0',
             'published_at_from' => 'nullable|date_format:Y-m-d H:i:s',
+            'page' => 'required|integer',
+            'per_page' => 'required|integer'
         ];
+    }
+
+    protected function prepareForValidation()
+    {
+        return $this->merge([
+            'page' => $this->page ?? 1,
+            'per_page' => $this->pre_page ?? 10
+        ]);
     }
 }
 

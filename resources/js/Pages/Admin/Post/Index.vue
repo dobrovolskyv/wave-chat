@@ -27,11 +27,11 @@
             </div>
         </div>
     </div>
-    <div class="">
+    <div class="mb-4">
         <div v-for="post in postsData"
             class="mb-4 bg-white p-4 border  border-gray-200 flex justify-between items-center">
             <Link :href="route('admin.posts.show', post.id)" class="text-bold max-w-[45 0px] w-full">
-            <h3 class="text-bold text-2xl max-w-[400px] mb-2 hover:text-gray-500">{{ post.title }}</h3>
+            <h3 class="text-bold text-2xl max-w-[400px] mb-2 hover:text-gray-500" v-html="link.label"></h3>
             </Link>
             <!-- <p class="text-gray-500">{{ post.content }}</p> -->
             <div class="w-[200px]">
@@ -59,13 +59,18 @@
 
         </div>
     </div>
+    <div>
+        <div>
+            <a class="inline-block mr-2 p-2 border border-gray-200 bg-white text-gray-600" v-for="link in postsData.meta.links" href="#" v-html="link.label"></a>
+        </div>
+    </div>
 </template>
 
 <script>
 import AdminLayout from '@/Layouts/AdminLayout.vue';
 import { Link } from "@inertiajs/vue3";
 import axios from "axios";
-
+ 
 export default {
     name: "Index",
     layout: AdminLayout,

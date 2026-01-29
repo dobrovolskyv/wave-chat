@@ -21,11 +21,11 @@ class PostController extends Controller
     public function index(IndexRequest $request)
     {
         $data= $request->validated();
-        $posts = PostResource::collection(Post::filter($data)->latest()->get())->resolve();
+        $posts = PostResource::collection(Post::filter($data)->latest()->paginate(5, '*', 'page', 1));
 
         if(Request::wantsJson()){
             return $posts;
-        } 
+        }  
 
         return inertia('Admin/Post/Index', compact('posts'));
     }

@@ -8,21 +8,21 @@
     <div class="mb-4">
         <div class="flex items-center ">
             <div>
-                <input v-model="filter.title" class="border border-gray-200 p-4" type="text" placeholder="title">
+                <input v-model="entries.filter.title" class="border border-gray-200 p-4" type="text" placeholder="title">
             </div>
             <div>
-                <input v-model="filter.publishad_at_from" class="border border-gray-200 p-4" type="number"
+                <input v-model="entries.filter.publishad_at_from" class="border border-gray-200 p-4" type="number"
                     placeholder="views from">
             </div>
             <div>
-                <input v-model="filter.views_from" class="border border-gray-200 p-4" type="date" placeholder="date">
+                <input v-model="entries.filter.views_from" class="border border-gray-200 p-4" type="date" placeholder="date">
             </div>
             <div>
                 <a @click.prevent="getPosts" href="#"
                     class="border border-emerald-800 p-4 inline-block  bg-emerald-700 text-white">Применить фильтр</a>
             </div>
-            <div v-if="Object.keys(filter).length > 0">
-                <a @click.prevent="filter = {}" href="#"
+            <div v-if="Object.keys(entries.filter).length > 0">
+                <a @click.prevent="entries.filter = {}" href="#"
                     class="border border-red-800 p-4 inline-block  bg-red-700 text-white">Отменить фильтр</a>
             </div>
         </div>
@@ -100,7 +100,7 @@ export default {
         destroyPost(post) {
             axios.delete(route('admin.posts.destroy', post.id))
                 .then(res => {
-                    this.postsData = this.postsData.filter(postItem => postItem.id !== post.id)
+                    this.postsData.data = this.postsData.data.filter(postItem => postItem.id !== post.id)
                 })
         },
         getPosts() {
